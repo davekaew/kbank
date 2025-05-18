@@ -9,8 +9,10 @@ public class KbankLogin {
 		String logIn = "Please enter your password";
 		String welcome = "Welcome to Kasikorn Bank";
 		String canceled = "User canceled";
-		String password = "davekaew2010";
+		String password = "DD";
 		int count = 3;
+		
+		KbankQuery que = new KbankQuery();
 		
 		do {
 			String input = JOptionPane.showInputDialog(null, logIn, "Log In", 
@@ -27,6 +29,7 @@ public class KbankLogin {
 			if (input.equals(password)) {
 				JOptionPane.showMessageDialog(null, welcome, "Welcome", 
 						JOptionPane.PLAIN_MESSAGE);
+				que.action();
 				//If correct break the loop
 				break;
 				

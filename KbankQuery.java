@@ -16,7 +16,7 @@ public class KbankQuery {
 				JOptionPane.QUESTION_MESSAGE);
 		double userInput = Double.parseDouble(input);
 				balance += userInput;
-				JOptionPane.showMessageDialog(null, "Your available balance is " + balance);
+				JOptionPane.showMessageDialog(null, "Your available balance is $" + balance);
 		
 	}
 	
@@ -35,17 +35,17 @@ public class KbankQuery {
 	}
 	
 	public void checkBalance() {
-		JOptionPane.showMessageDialog(null, "Your balance is " + balance);
+		JOptionPane.showMessageDialog(null, "Your balance is $" + balance);
 	}
 
 	
 	public void action() {
-		KbankQuery que = new KbankQuery();
+		
 		String[] choices = { "Deposit", "Withdraw", "Check Balance", "Quit" };
 
         String input = (String) JOptionPane.showInputDialog(
                 null,
-                "Action: ",
+                "Current balance: $"+balance,
                 "Action Panel",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -54,40 +54,55 @@ public class KbankQuery {
         		);
 
         do {
-	        switch (input) {
+        		
+        	switch (input) {
 	        
 	        case "Deposit":
-	        	que.deposit();
+	        	deposit();
 	        	input = (String) JOptionPane.showInputDialog(
 	                    null,
-	                    "Action: ",
+	                    "Current balance: $"+balance,
 	                    "Action Panel",
 	                    JOptionPane.QUESTION_MESSAGE,
 	                    null,
 	                    choices,
-	                    choices[0]  // default choice
+	                    choices[0]  
 	            		);
-	        	que.checkBalance();
 	        	break;
 	        case "Withdraw":
-	        	que.withdraw();
-	        	que.checkBalance();
-	        	break;
-	        case "Check Balance":
-	        	que.checkBalance();
+	        	withdraw();
 	        	input = (String) JOptionPane.showInputDialog(
 	                    null,
-	                    "Action: ",
+	                    "Current balance: $"+balance,
 	                    "Action Panel",
 	                    JOptionPane.QUESTION_MESSAGE,
 	                    null,
 	                    choices,
-	                    choices[0]  // default choice
+	                    choices[0]  
+	            		);
+	        	break;
+	        case "Check Balance":
+	        	checkBalance();
+	        	input = (String) JOptionPane.showInputDialog(
+	                    null,
+	                    "Current balance: $"+balance,
+	                    "Action Panel",
+	                    JOptionPane.QUESTION_MESSAGE,
+	                    null,
+	                    choices,
+	                    choices[0]  
 	            		);
 	        	break;
 	        case "Quit":
-	        	System.out.println("Thank you for using our service.");
+	        	JOptionPane.showMessageDialog(null, "User canceled", "Good bye", 
+				JOptionPane.CLOSED_OPTION);
 	        	break;
+	        case null:
+	        	JOptionPane.showMessageDialog(null, "User canceled", "Good bye", 
+						JOptionPane.CLOSED_OPTION);
+        				break;
+			default:
+				break;
 	        }
         }while(!input.equals("Quit"));
     }
