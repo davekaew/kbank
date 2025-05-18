@@ -40,6 +40,7 @@ public class KbankQuery {
 
 	
 	public void action() {
+		KbankQuery que = new KbankQuery();
 		String[] choices = { "Deposit", "Withdraw", "Check Balance", "Quit" };
 
         String input = (String) JOptionPane.showInputDialog(
@@ -52,11 +53,43 @@ public class KbankQuery {
                 choices[0]  // default choice
         		);
 
-        if (input != null) {
-            System.out.println("You selected: " + input);
-        } else {
-            System.out.println("No selection made.");
-        }
+        do {
+	        switch (input) {
+	        
+	        case "Deposit":
+	        	que.deposit();
+	        	input = (String) JOptionPane.showInputDialog(
+	                    null,
+	                    "Action: ",
+	                    "Action Panel",
+	                    JOptionPane.QUESTION_MESSAGE,
+	                    null,
+	                    choices,
+	                    choices[0]  // default choice
+	            		);
+	        	que.checkBalance();
+	        	break;
+	        case "Withdraw":
+	        	que.withdraw();
+	        	que.checkBalance();
+	        	break;
+	        case "Check Balance":
+	        	que.checkBalance();
+	        	input = (String) JOptionPane.showInputDialog(
+	                    null,
+	                    "Action: ",
+	                    "Action Panel",
+	                    JOptionPane.QUESTION_MESSAGE,
+	                    null,
+	                    choices,
+	                    choices[0]  // default choice
+	            		);
+	        	break;
+	        case "Quit":
+	        	System.out.println("Thank you for using our service.");
+	        	break;
+	        }
+        }while(!input.equals("Quit"));
     }
 	
 }
