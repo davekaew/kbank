@@ -1,12 +1,19 @@
 package kbank;
-// testtest edit
+
+import javax.swing.JOptionPane;
+
 public class Kbank_Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		KbankLogin log = new KbankLogin();
+		KbankQuery que = new KbankQuery();
 		
-		KbankLogin.logIn();
+		que.action();
+		log.logIn();
 
+		
+		
+		
 	}
 
 }

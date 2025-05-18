@@ -38,4 +38,25 @@ public class KbankQuery {
 		JOptionPane.showMessageDialog(null, "Your balance is " + balance);
 	}
 
+	
+	public void action() {
+		String[] choices = { "Deposit", "Withdraw", "Check Balance", "Quit" };
+
+        String input = (String) JOptionPane.showInputDialog(
+                null,
+                "Action: ",
+                "Action Panel",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                choices,
+                choices[0]  // default choice
+        		);
+
+        if (input != null) {
+            System.out.println("You selected: " + input);
+        } else {
+            System.out.println("No selection made.");
+        }
+    }
+	
 }

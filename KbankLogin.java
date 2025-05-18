@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class KbankLogin {
 	
-	public static void logIn( ) {
+	public void logIn( ) {
 		
 		String logIn = "Please enter your password";
 		String welcome = "Welcome to Kasikorn Bank";
