@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class KbankQuery {
 	
 	int balance = 500;
-	int overdraftLimit = -100;
+	int overdraftLimit = -100; // Testing
 	String deposit = "How much would you like to deposit";
 	String withdraw = "How much would you like to withdraw";
 	String checkBalance = "Your balance is " + balance;
