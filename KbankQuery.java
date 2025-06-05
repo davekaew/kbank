@@ -3,108 +3,59 @@ package kbank;
 import javax.swing.JOptionPane;
 
 public class KbankQuery {
-	
-	int balance = 500;
-	int overdraftLimit = -100; // Testing
-	String deposit = "How much would you like to deposit";
-	String withdraw = "How much would you like to withdraw";
-	String checkBalance = "Your balance is " + balance;
-	
-	public void deposit() {
-		
-		String input = JOptionPane.showInputDialog(null, deposit, "Deposit", 
-				JOptionPane.QUESTION_MESSAGE);
-		double userInput = Double.parseDouble(input);
-				balance += userInput;
-				JOptionPane.showMessageDialog(null, "Your available balance is $" + balance);
-		
-	}
-	
-	public void withdraw() {
-		
-		String input = JOptionPane.showInputDialog(null, withdraw, "Withdraw", 
-				JOptionPane.QUESTION_MESSAGE);
-		double userInput = Double.parseDouble(input);
-		if (balance - userInput < overdraftLimit) {
-			JOptionPane.showMessageDialog(null, "Transaction denied. Withdrawal would exceed your overdraft limit of $" + overdraftLimit);
-		} else {
-			balance -= userInput;
-			JOptionPane.showMessageDialog(null, "Withdrawal successful. Your new balance is $" + balance);
-		}
-		
-	}
-	
-	public void checkBalance() {
-		JOptionPane.showMessageDialog(null, "Your balance is $" + balance);
-	}
 
-	
-	public void action() {
-		
-		String[] choices = { "Deposit", "Withdraw", "Check Balance", "Quit" };
-
-        String input = (String) JOptionPane.showInputDialog(
-                null,
-                "Current balance: $"+balance,
-                "Action Panel",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                choices,
-                choices[0]  // default choice
-        		);
+    public void action(KbankAccount currentUser, KbankAccount otherUser) {
+        String[] choices = {"Deposit", "Withdraw", "Check Balance", "Transfer", "Log Out"};
+        String input;
 
         do {
-        		
-        	switch (input) {
-	        
-	        case "Deposit":
-	        	deposit();
-	        	input = (String) JOptionPane.showInputDialog(
-	                    null,
-	                    "Current balance: $"+balance,
-	                    "Action Panel",
-	                    JOptionPane.QUESTION_MESSAGE,
-	                    null,
-	                    choices,
-	                    choices[0]  
-	            		);
-	        	break;
-	        case "Withdraw":
-	        	withdraw();
-	        	input = (String) JOptionPane.showInputDialog(
-	                    null,
-	                    "Current balance: $"+balance,
-	                    "Action Panel",
-	                    JOptionPane.QUESTION_MESSAGE,
-	                    null,
-	                    choices,
-	                    choices[0]  
-	            		);
-	        	break;
-	        case "Check Balance":
-	        	checkBalance();
-	        	input = (String) JOptionPane.showInputDialog(
-	                    null,
-	                    "Current balance: $"+balance,
-	                    "Action Panel",
-	                    JOptionPane.QUESTION_MESSAGE,
-	                    null,
-	                    choices,
-	                    choices[0]  
-	            		);
-	        	break;
-	        case "Quit":
-	        	JOptionPane.showMessageDialog(null, "User canceled", "Good bye", 
-				JOptionPane.CLOSED_OPTION);
-	        	break;
-	        case null:
-	        	JOptionPane.showMessageDialog(null, "User canceled", "Good bye", 
-						JOptionPane.CLOSED_OPTION);
-        				break;
-			default:
-				break;
-	        }
-        }while(!input.equals("Quit"));
+            input = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Current balance: $" + currentUser.getBalance(),
+                    "Action Panel - " + currentUser.getOwner(),
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    choices,
+                    choices[0]
+            );
+
+            switch (input) {
+                case "Deposit":
+                    String depositStr = JOptionPane.showInputDialog(null, "How much to deposit?");
+                    currentUser.deposit(Double.parseDouble(depositStr));
+                    break;
+
+                case "Withdraw":
+                    String withdrawStr = JOptionPane.showInputDialog(null, "How much to withdraw?");
+                    if (!currentUser.withdraw(Double.parseDouble(withdrawStr))) {
+                        JOptionPane.showMessageDialog(null, "Overdraft limit exceeded.");
+                    }
+                    break;
+
+                case "Check Balance":
+                    JOptionPane.showMessageDialog(null, "Balance: $" + currentUser.getBalance());
+                    break;
+
+                case "Transfer":
+                    String transferStr = JOptionPane.showInputDialog(null, "How much to transfer?");
+                    double amount = Double.parseDouble(transferStr);
+                    if (currentUser.transfer(otherUser, amount)) {
+                        JOptionPane.showMessageDialog(null, "Transfer successful.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Transfer failed. Not enough funds.");
+                    }
+                    break;
+
+                case "Log Out":
+                case null:
+                    JOptionPane.showMessageDialog(null, "Logged out!");
+                    return;
+
+                    
+                default:
+                    break;
+            }
+
+        } while (input != null && !input.equals("Quit"));
     }
-	
 }
